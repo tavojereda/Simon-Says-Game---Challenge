@@ -1,0 +1,14 @@
+@mixin grid-area($area) {
+	grid-area: $area;
+}
+
+@mixin btn-grid-area($name, $area) {
+	.btn-#{$name} {
+		@include grid-area(btn-#{$area});
+		background: #{$name};
+
+		& span span {
+			background: #{$name};
+		}
+	}
+}

@@ -1,0 +1,24 @@
+@use "../abstracts" as abs;
+
+body {
+    background-color: abs.$dark-blue;
+    color: abs.$font-color;
+    font-family: abs.$primary-font;
+    text-align: center;
+}
+
+h1 {
+    font-size: abs.$header-size;
+}
+
+header {
+	@include abs.grid-area(header);
+	align-self: center;
+}
+
+//esto es un Sass List
+$buttons: "green", "red", "yellow", "blue";
+
+@each $btn in $buttons {
+	@include abs.btn-grid-area($btn, $btn);
+}
