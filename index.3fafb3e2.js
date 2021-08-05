@@ -382,13 +382,24 @@ function hmrAcceptRun(bundle/*: ParcelRequire */ , id/*: string */ ) {
 
 },{}],"5rkFb":[function(require,module,exports) {
 var _mainJs = require("./javascript/main.js");
+// import { btnAddAnimation, playAudio } from "./javascript/Buttons.js";
 var _buttonsJs = require("./javascript/Buttons.js");
-// import { simon, player, level } from "./javascript/main.js";
-// import {  simon, player } from "./javascript/main.js"
+const sounds = [
+    "../sounds/green.mp3",
+    "../sounds/red.mp3",
+    "../sounds/yellow.mp3",
+    "../sounds/blue.mp3",
+    "../sounds/wrong.mp3", 
+];
+const playAudio = (button)=>{
+    let audio = new Audio(sounds[button]);
+    audio.play();
+};
 $(".cta").click((e)=>{
+    let button = $(".cta").index(e.currentTarget);
+    playAudio(button);
     _buttonsJs.btnAddAnimation(e.currentTarget);
-    _mainJs.playerSays($(".cta").index(e.currentTarget));
-// console.log($(".cta").index(e.currentTarget));
+    _mainJs.playerSays(button);
 });
 $("body").keyup((e)=>{
     if (e.key === "a") _mainJs.startGame();
@@ -408,23 +419,43 @@ const btnColors = [
     ".btn-yellow",
     ".btn-blue"
 ];
-let simon = [
-    0,
-    0,
-    3
-];
-let player = [];
-let level = 4;
+let simon = [];
+// let player = [];
+let level = 1;
 let count = 0;
 let gameOver = false;
+const randomGenerator = ()=>Math.floor(Math.random() * 4)
+;
+const lvlChanger = (level1)=>{
+    console.log(level1);
+    $("h1").text(`Level ${level1}`);
+};
 const startGame = ()=>{
     $("body").unbind("keyup");
     lvlChanger(level);
     simonSays();
 };
+const simonSays = ()=>{
+    count = 0;
+    gameOver = false;
+    // let randomNumber = randomGenerator();
+    simon = [
+        ...simon,
+        randomGenerator()
+    ];
+    level++;
+    simon.forEach((element, index)=>{
+        setTimeout(()=>{
+            // $(btnColors[element].toString()).trigger("click");
+            _buttonsJs.btnAddAnimation(btnColors[element].toString());
+        }, `${index + 2}000`);
+    });
+};
 const playerSays = (button)=>{
     // while (gameOver == false) {
-    console.log(simon[count]);
+    // console.log(`count: ${count}`);
+    // console.log(`butoon: ${button}`);
+    // console.log(`simon: ${simon[count]}`);
     if (button != simon[count]) {
         gameOver = true;
         level = 1;
@@ -432,31 +463,12 @@ const playerSays = (button)=>{
         $("h1").text(`Game Over Press F5 to restart`);
     }
     if (gameOver === false) count++;
+    if (count === simon.length && gameOver === false) {
+        lvlChanger(level);
+        simonSays();
+    }
 // }
-};
-const randomGenerator = ()=>Math.floor(Math.random() * 4)
-;
-const lvlChanger = (level1)=>{
-    $("h1").text(`Level ${level1}`);
-};
-const simonSays = ()=>{
-    gameOver = false;
-    let randomNumber = randomGenerator();
-    simon = [
-        ...simon,
-        randomNumber
-    ];
-    console.log(simon);
-    level++;
-    simon.forEach((element, index)=>{
-        setTimeout(()=>{
-            // $(btnColors[element].toString()).triggerHandler("click");
-            // $(btnColors[element].toString()).trigger("click");
-            _buttonsJs.btnAddAnimation(btnColors[element].toString());
-        }, `${index}000`);
-    });
-    count = 0;
-};
+}; // export { startGame, playerSays };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./Buttons.js":"1NmU1"}],"367CR":[function(require,module,exports) {
 exports.interopDefault = function(a) {
