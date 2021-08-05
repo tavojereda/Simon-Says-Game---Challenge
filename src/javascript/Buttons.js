@@ -1,5 +1,7 @@
+
+
 export const btnAddAnimation = (button) => {
-		$(button)
+	$(button)
 		.addClass("active")
 		.delay(300)
 		.queue((next) => {

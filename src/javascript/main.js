@@ -2,11 +2,18 @@ import { btnAddAnimation } from "./Buttons.js";
 
 const btnColors = [".btn-green", ".btn-red", ".btn-yellow", ".btn-blue"];
 
-let simon = [0, 0, 3];
-let player = [];
-let level = 4;
+let simon = [];
+// let player = [];
+let level = 1;
 let count = 0;
 let gameOver = false;
+
+const randomGenerator = () => Math.floor(Math.random() * 4);
+
+const lvlChanger = (level) => {
+	console.log(level);
+	$("h1").text(`Level ${level}`);
+};
 
 export const startGame = () => {
 	$("body").unbind("keyup");
@@ -14,9 +21,25 @@ export const startGame = () => {
 	simonSays();
 };
 
+const simonSays = () => {
+	count = 0;
+	gameOver = false;
+	// let randomNumber = randomGenerator();
+	simon = [...simon, randomGenerator()];
+	level++;
+	simon.forEach((element, index) => {
+		setTimeout(() => {
+			// $(btnColors[element].toString()).trigger("click");
+			btnAddAnimation(btnColors[element].toString());
+		}, `${index + 2}000`);
+	});
+};
+
 export const playerSays = (button) => {
 	// while (gameOver == false) {
-	console.log(simon[count]);
+	// console.log(`count: ${count}`);
+	// console.log(`butoon: ${button}`);
+	// console.log(`simon: ${simon[count]}`);
 	if (button != simon[count]) {
 		gameOver = true;
 		level = 1;
@@ -26,27 +49,11 @@ export const playerSays = (button) => {
 	if (gameOver === false) {
 		count++;
 	}
+	if (count === simon.length && gameOver === false) {
+		lvlChanger(level);
+		simonSays();
+	}
 	// }
 };
 
-const randomGenerator = () => Math.floor(Math.random() * 4);
-
-const lvlChanger = (level) => {
-	$("h1").text(`Level ${level}`);
-};
-
-const simonSays = () => {
-	gameOver = false;
-	let randomNumber = randomGenerator();
-	simon = [...simon, randomNumber];
-	console.log(simon);
-	level++;
-	simon.forEach((element, index) => {
-		setTimeout(() => {
-			// $(btnColors[element].toString()).triggerHandler("click");
-			// $(btnColors[element].toString()).trigger("click");
-			btnAddAnimation(btnColors[element].toString());
-		}, `${index}000`);
-	});
-	count = 0;
-};
+// export { startGame, playerSays };
