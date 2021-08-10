@@ -73,7 +73,7 @@
         localRequire,
         module,
         module.exports,
-        this,
+        this
       );
     }
 
@@ -140,12 +140,76 @@
       this[globalName] = mainExports;
     }
   }
-})({"7mia1":[function(require,module,exports) {
+})({"44Ixy":[function(require,module,exports) {
 var HMR_HOST = "192.168.1.14";
 var HMR_PORT = null;
 var HMR_SECURE = false;
-var HMR_ENV_HASH = "d751713988987e9331980363e24189ce";
-module.bundle.HMR_BUNDLE_ID = "0fa2489aa94c8731ee2aee9f3fafb3e2"; // @flow
+var HMR_ENV_HASH = "69f74e7f31319ffd";
+module.bundle.HMR_BUNDLE_ID = "92d425515cb7de60";
+"use strict";
+function _createForOfIteratorHelper(o, allowArrayLike) {
+    var it;
+    if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+        if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+            if (it) o = it;
+            var i = 0;
+            var F = function F1() {
+            };
+            return {
+                s: F,
+                n: function n() {
+                    if (i >= o.length) return {
+                        done: true
+                    };
+                    return {
+                        done: false,
+                        value: o[i++]
+                    };
+                },
+                e: function e(_e) {
+                    throw _e;
+                },
+                f: F
+            };
+        }
+        throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+    var normalCompletion = true, didErr = false, err;
+    return {
+        s: function s() {
+            it = o[Symbol.iterator]();
+        },
+        n: function n() {
+            var step = it.next();
+            normalCompletion = step.done;
+            return step;
+        },
+        e: function e(_e2) {
+            didErr = true;
+            err = _e2;
+        },
+        f: function f() {
+            try {
+                if (!normalCompletion && it.return != null) it.return();
+            } finally{
+                if (didErr) throw err;
+            }
+        }
+    };
+}
+function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
+    return arr2;
+}
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE */ /*::
 import type {
   HMRAsset,
@@ -186,33 +250,31 @@ function Module(moduleName) {
         data: module.bundle.hotData,
         _acceptCallbacks: [],
         _disposeCallbacks: [],
-        accept: function(fn) {
+        accept: function accept(fn) {
             this._acceptCallbacks.push(fn || function() {
             });
         },
-        dispose: function(fn) {
+        dispose: function dispose(fn) {
             this._disposeCallbacks.push(fn);
         }
     };
     module.bundle.hotData = undefined;
 }
 module.bundle.Module = Module;
-var checkedAssets/*: {|[string]: boolean|} */ , acceptedAssets/*: {|[string]: boolean|} */ , assetsToAccept/*: Array<[ParcelRequire, string]> */ ;
+var checkedAssets, acceptedAssets, assetsToAccept;
 function getHostname() {
     return HMR_HOST || (location.protocol.indexOf('http') === 0 ? location.hostname : 'localhost');
 }
 function getPort() {
     return HMR_PORT || location.port;
-}
-// eslint-disable-next-line no-redeclare
+} // eslint-disable-next-line no-redeclare
 var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
     var hostname = getHostname();
     var port = getPort();
     var protocol = HMR_SECURE || location.protocol == 'https:' && !/localhost|127.0.0.1|0.0.0.0/.test(hostname) ? 'wss' : 'ws';
-    var ws = new WebSocket(protocol + '://' + hostname + (port ? ':' + port : '') + '/');
-    // $FlowFixMe
-    ws.onmessage = function(event/*: {data: string, ...} */ ) {
+    var ws = new WebSocket(protocol + '://' + hostname + (port ? ':' + port : '') + '/'); // $FlowFixMe
+    ws.onmessage = function(event) {
         checkedAssets = {
         };
         acceptedAssets = {
@@ -222,13 +284,11 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         if (data.type === 'update') {
             // Remove error overlay if there is one
             removeErrorOverlay();
-            let assets = data.assets.filter((asset)=>asset.envHash === HMR_ENV_HASH
-            );
-            // Handle HMR Update
-            var handled = false;
-            assets.forEach((asset)=>{
-                var didAccept = asset.type === 'css' || asset.type === 'js' && hmrAcceptCheck(module.bundle.root, asset.id, asset.depsByBundle);
-                if (didAccept) handled = true;
+            var assets = data.assets.filter(function(asset) {
+                return asset.envHash === HMR_ENV_HASH;
+            }); // Handle HMR Update
+            var handled = assets.every(function(asset) {
+                return asset.type === 'css' || asset.type === 'js' && hmrAcceptCheck(module.bundle.root, asset.id, asset.depsByBundle);
             });
             if (handled) {
                 console.clear();
@@ -243,21 +303,27 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         }
         if (data.type === 'error') {
             // Log parcel errors to console
-            for (let ansiDiagnostic of data.diagnostics.ansi){
-                let stack = ansiDiagnostic.codeframe ? ansiDiagnostic.codeframe : ansiDiagnostic.stack;
-                console.error('🚨 [parcel]: ' + ansiDiagnostic.message + '\n' + stack + '\n\n' + ansiDiagnostic.hints.join('\n'));
+            var _iterator = _createForOfIteratorHelper(data.diagnostics.ansi), _step;
+            try {
+                for(_iterator.s(); !(_step = _iterator.n()).done;){
+                    var ansiDiagnostic = _step.value;
+                    var stack = ansiDiagnostic.codeframe ? ansiDiagnostic.codeframe : ansiDiagnostic.stack;
+                    console.error('🚨 [parcel]: ' + ansiDiagnostic.message + '\n' + stack + '\n\n' + ansiDiagnostic.hints.join('\n'));
+                } // Render the fancy html overlay
+            } catch (err) {
+                _iterator.e(err);
+            } finally{
+                _iterator.f();
             }
-            // Render the fancy html overlay
             removeErrorOverlay();
-            var overlay = createErrorOverlay(data.diagnostics.html);
-            // $FlowFixMe
+            var overlay = createErrorOverlay(data.diagnostics.html); // $FlowFixMe
             document.body.appendChild(overlay);
         }
     };
     ws.onerror = function(e) {
         console.error(e.message);
     };
-    ws.onclose = function(e) {
+    ws.onclose = function() {
         console.warn('[parcel] 🚨 Connection to the HMR server was lost');
     };
 }
@@ -271,11 +337,20 @@ function removeErrorOverlay() {
 function createErrorOverlay(diagnostics) {
     var overlay = document.createElement('div');
     overlay.id = OVERLAY_ID;
-    let errorHTML = '<div style="background: black; opacity: 0.85; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; font-family: Menlo, Consolas, monospace; z-index: 9999;">';
-    for (let diagnostic of diagnostics){
-        let stack = diagnostic.codeframe ? diagnostic.codeframe : diagnostic.stack;
-        errorHTML += `\n      <div>\n        <div style="font-size: 18px; font-weight: bold; margin-top: 20px;">\n          🚨 ${diagnostic.message}\n        </div>\n        <pre>\n          ${stack}\n        </pre>\n        <div>\n          ${diagnostic.hints.map((hint)=>'<div>' + hint + '</div>'
-        ).join('')}\n        </div>\n      </div>\n    `;
+    var errorHTML = '<div style="background: black; opacity: 0.85; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; font-family: Menlo, Consolas, monospace; z-index: 9999;">';
+    var _iterator2 = _createForOfIteratorHelper(diagnostics), _step2;
+    try {
+        for(_iterator2.s(); !(_step2 = _iterator2.n()).done;){
+            var diagnostic = _step2.value;
+            var stack = diagnostic.codeframe ? diagnostic.codeframe : diagnostic.stack;
+            errorHTML += "\n      <div>\n        <div style=\"font-size: 18px; font-weight: bold; margin-top: 20px;\">\n          \uD83D\uDEA8 ".concat(diagnostic.message, "\n        </div>\n        <pre>\n          ").concat(stack, "\n        </pre>\n        <div>\n          ").concat(diagnostic.hints.map(function(hint) {
+                return '<div>' + hint + '</div>';
+            }).join(''), "\n        </div>\n      </div>\n    ");
+        }
+    } catch (err) {
+        _iterator2.e(err);
+    } finally{
+        _iterator2.f();
     }
     errorHTML += '</div>';
     overlay.innerHTML = errorHTML;
@@ -302,9 +377,7 @@ function updateLink(link) {
         if (link.parentNode !== null) // $FlowFixMe
         link.parentNode.removeChild(link);
     };
-    newLink.setAttribute('href', // $FlowFixMe
-    link.getAttribute('href').split('?')[0] + '?' + Date.now());
-    // $FlowFixMe
+    newLink.setAttribute('href', link.getAttribute('href').split('?')[0] + '?' + Date.now()); // $FlowFixMe
     link.parentNode.insertBefore(newLink, link.nextSibling);
 }
 var cssTimeout = null;
@@ -323,14 +396,14 @@ function reloadCSS() {
         cssTimeout = null;
     }, 50);
 }
-function hmrApply(bundle/*: ParcelRequire */ , asset/*:  HMRAsset */ ) {
+function hmrApply(bundle, asset) {
     var modules = bundle.modules;
     if (!modules) return;
     if (asset.type === 'css') {
         reloadCSS();
         return;
     }
-    let deps = asset.depsByBundle[bundle.HMR_BUNDLE_ID];
+    var deps = asset.depsByBundle[bundle.HMR_BUNDLE_ID];
     if (deps) {
         var fn = new Function('require', 'module', 'exports', asset.output);
         modules[asset.id] = [
@@ -339,7 +412,7 @@ function hmrApply(bundle/*: ParcelRequire */ , asset/*:  HMRAsset */ ) {
         ];
     } else if (bundle.parent) hmrApply(bundle.parent, asset);
 }
-function hmrAcceptCheck(bundle/*: ParcelRequire */ , id/*: string */ , depsByBundle/*: ?{ [string]: { [string]: string } }*/ ) {
+function hmrAcceptCheck(bundle, id, depsByBundle) {
     var modules = bundle.modules;
     if (!modules) return;
     if (depsByBundle && !depsByBundle[bundle.HMR_BUNDLE_ID]) {
@@ -360,7 +433,7 @@ function hmrAcceptCheck(bundle/*: ParcelRequire */ , id/*: string */ , depsByBun
         return hmrAcceptCheck(v[0], v[1], null);
     });
 }
-function hmrAcceptRun(bundle/*: ParcelRequire */ , id/*: string */ ) {
+function hmrAcceptRun(bundle, id) {
     var cached = bundle.cache[id];
     bundle.hotData = {
     };
@@ -375,37 +448,43 @@ function hmrAcceptRun(bundle/*: ParcelRequire */ , id/*: string */ ) {
         var assetsToAlsoAccept = cb(function() {
             return getParents(module.bundle.root, id);
         });
-        if (assetsToAlsoAccept && assetsToAccept.length) assetsToAccept.push.apply(assetsToAccept, assetsToAlsoAccept);
+        if (assetsToAlsoAccept && assetsToAccept.length) // $FlowFixMe[method-unbinding]
+        assetsToAccept.push.apply(assetsToAccept, assetsToAlsoAccept);
     });
     acceptedAssets[id] = true;
 }
 
-},{}],"5rkFb":[function(require,module,exports) {
+},{}],"6cF5V":[function(require,module,exports) {
 var _mainJs = require("./javascript/main.js");
-// import { btnAddAnimation, playAudio } from "./javascript/Buttons.js";
 var _buttonsJs = require("./javascript/Buttons.js");
-const sounds = [
-    "../sounds/green.mp3",
-    "../sounds/red.mp3",
-    "../sounds/yellow.mp3",
-    "../sounds/blue.mp3",
-    "../sounds/wrong.mp3", 
-];
-const playAudio = (button)=>{
-    let audio = new Audio(sounds[button]);
-    audio.play();
-};
-$(".cta").click((e)=>{
-    let button = $(".cta").index(e.currentTarget);
-    playAudio(button);
+const buttons = $(".cta");
+/**
+ * Button Behavior.
+ *
+ * Add click event to the buttons, plays tha audio button verify player answer.
+ *
+ * Plays audio. {@link playAudio}
+ *
+ * Plays button animation. {@link btnAddAnimation}
+ *
+ * Verify player answer. {@link playerSays}
+ */ buttons.click((e)=>{
+    let buttonIndex = buttons.index(e.currentTarget);
+    _buttonsJs.playAudio(buttonIndex);
     _buttonsJs.btnAddAnimation(e.currentTarget);
-    _mainJs.playerSays(button);
+    _mainJs.playerSays(buttonIndex);
 });
-$("body").keyup((e)=>{
+/**
+ * Launch Game.
+ *
+ * Launch the game by pressing the A key.
+ *
+ * Start the game. {@link startGame}
+ */ $("body").keyup((e)=>{
     if (e.key === "a") _mainJs.startGame();
 });
 
-},{"./javascript/main.js":"3hAC5","./javascript/Buttons.js":"1NmU1"}],"3hAC5":[function(require,module,exports) {
+},{"./javascript/main.js":"5x3uc","./javascript/Buttons.js":"5F2tU"}],"5x3uc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "startGame", ()=>startGame
@@ -420,57 +499,126 @@ const btnColors = [
     ".btn-blue"
 ];
 let simon = [];
-// let player = [];
 let level = 1;
 let count = 0;
 let gameOver = false;
-const randomGenerator = ()=>Math.floor(Math.random() * 4)
+/**
+ * Generate a random number.
+ *
+ * Generate a random number from 0 to 3.
+ *
+ * @return {number} Random number from 0 to 3.
+ */ const randomGenerator = ()=>Math.floor(Math.random() * 4)
 ;
-const lvlChanger = (level1)=>{
-    console.log(level1);
-    $("h1").text(`Level ${level1}`);
+/**
+ * Change header to current level.
+ *
+ * Indicate if is player or simon turn and change header to the current level.
+ *
+ * @param  {number} level Level that will be display.
+ * @param  {boolean} simonSays Indicate if is player or simon turn.
+ */ const lvlChanger = (level1, simonSays)=>{
+    $("h1").text(`Level ${level1}\n	${simonSays === true ? "Simon Says" : "Player Says"}`);
 };
 const startGame = ()=>{
     $("body").unbind("keyup");
-    lvlChanger(level);
+    lvlChanger(level, true);
     simonSays();
 };
-const simonSays = ()=>{
+/**
+ * Disable and Enable Buttons.
+ *
+ * Disable the buttons when the pattern is displaying and enable the buttons when the pattern ends.
+ *
+ * Indicates is player turn. {@link lvlChanger}
+ */ const btnDisablerEnabler = ()=>{
+    let buttons = $(".cta");
+    buttons.prop("disabled", true);
+    setTimeout(()=>{
+        buttons.prop("disabled", false);
+        lvlChanger(level, false);
+    }, `${simon.length + 3}000`);
+};
+/**
+ * Main game mechanics.
+ * @alias Main-game-mechanics.
+ *
+ * Create the patterns and shows it.
+ *
+ * Disable and Enable Buttons. {@link btnDisablerEnabler}
+ *
+ */ const simonSays = ()=>{
+    btnDisablerEnabler();
     count = 0;
     gameOver = false;
-    // let randomNumber = randomGenerator();
     simon = [
         ...simon,
         randomGenerator()
     ];
-    level++;
+    console.log(simon);
     simon.forEach((element, index)=>{
         setTimeout(()=>{
             // $(btnColors[element].toString()).trigger("click");
+            _buttonsJs.playAudio(element);
             _buttonsJs.btnAddAnimation(btnColors[element].toString());
         }, `${index + 2}000`);
     });
 };
-const playerSays = (button)=>{
-    // while (gameOver == false) {
-    // console.log(`count: ${count}`);
-    // console.log(`butoon: ${button}`);
-    // console.log(`simon: ${simon[count]}`);
-    if (button != simon[count]) {
+const playerSays = (buttonIndex)=>{
+    console.log(`button: ${buttonIndex}`);
+    if (buttonIndex != simon[count]) {
+        _buttonsJs.playAudio(4);
         gameOver = true;
         level = 1;
-        count = 0;
         $("h1").text(`Game Over Press F5 to restart`);
+    } else {
+        count++;
+        if (count === simon.length && gameOver === false) {
+            level++;
+            lvlChanger(level, true);
+            simonSays();
+        }
     }
-    if (gameOver === false) count++;
-    if (count === simon.length && gameOver === false) {
-        lvlChanger(level);
-        simonSays();
-    }
-// }
-}; // export { startGame, playerSays };
+};
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./Buttons.js":"1NmU1"}],"367CR":[function(require,module,exports) {
+},{"./Buttons.js":"5F2tU","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"5F2tU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "btnAddAnimation", ()=>btnAddAnimation
+);
+parcelHelpers.export(exports, "playAudio", ()=>playAudio
+);
+// import { greenMP3, redMP3, yellowMP3, blueMP3 } from "url:./sounds.js";
+var _greenMp3 = require("url:../sounds/green.mp3");
+var _greenMp3Default = parcelHelpers.interopDefault(_greenMp3);
+var _redMp3 = require("url:../sounds/red.mp3");
+var _redMp3Default = parcelHelpers.interopDefault(_redMp3);
+var _yellowMp3 = require("url:../sounds/yellow.mp3");
+var _yellowMp3Default = parcelHelpers.interopDefault(_yellowMp3);
+var _blueMp3 = require("url:../sounds/blue.mp3");
+var _blueMp3Default = parcelHelpers.interopDefault(_blueMp3);
+var _wrongMp3 = require("url:../sounds/wrong.mp3");
+var _wrongMp3Default = parcelHelpers.interopDefault(_wrongMp3);
+const sounds = [_greenMp3Default.default, _redMp3Default.default, _yellowMp3Default.default, _blueMp3Default.default, _wrongMp3Default.default];
+const btnAddAnimation = (buttonElement)=>{
+    $(buttonElement).addClass("active").delay(300).queue((next)=>{
+        $(buttonElement).removeClass("active");
+        next();
+    });
+};
+const playAudio = (button)=>{
+    console.log(sounds[button]);
+    let audio = new Audio(sounds[button]);
+    audio.play();
+}; // $(".cta").click(function(){
+ //     $(this).addClass("active").delay(300).queue(function(next){
+ //         $(this).removeClass("active");
+ //         next();
+ //     });
+ // });
+ // export { buttonAnimation };
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","url:../sounds/green.mp3":"ajjMm","url:../sounds/red.mp3":"Hli51","url:../sounds/yellow.mp3":"2VCvj","url:../sounds/blue.mp3":"csJ2p","url:../sounds/wrong.mp3":"4Sc9W"}],"JacNc":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -502,24 +650,56 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"1NmU1":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "btnAddAnimation", ()=>btnAddAnimation
-);
-const btnAddAnimation = (button)=>{
-    $(button).addClass("active").delay(300).queue((next)=>{
-        $(button).removeClass("active");
-        next();
-    });
-}; // $(".cta").click(function(){
- //     $(this).addClass("active").delay(300).queue(function(next){
- //         $(this).removeClass("active");
- //         next();
- //     });
- // });
- // export { buttonAnimation };
+},{}],"ajjMm":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "green.11273193.mp3";
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR"}]},["7mia1","5rkFb"], "5rkFb", "parcelRequireab56")
+},{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
 
-//# sourceMappingURL=index.3fafb3e2.js.map
+},{}],"Hli51":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "red.0ffef589.mp3";
+
+},{"./helpers/bundle-url":"8YnfL"}],"2VCvj":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "yellow.1d54631a.mp3";
+
+},{"./helpers/bundle-url":"8YnfL"}],"csJ2p":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "blue.a805b085.mp3";
+
+},{"./helpers/bundle-url":"8YnfL"}],"4Sc9W":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "wrong.b4c6a247.mp3";
+
+},{"./helpers/bundle-url":"8YnfL"}]},["44Ixy","6cF5V"], "6cF5V", "parcelRequireacc0")
+
+//# sourceMappingURL=index.5cb7de60.js.map
