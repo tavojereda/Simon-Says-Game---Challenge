@@ -2,7 +2,6 @@
   "name": "simon-says-game-challenge",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel serve ./src/index.html --host 192.168.1.14",
     "build": "parcel build ./src/index.html"
