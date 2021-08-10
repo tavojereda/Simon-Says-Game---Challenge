@@ -1,27 +1,33 @@
 import { startGame, playerSays } from "./javascript/main.js";
-// import { btnAddAnimation, playAudio } from "./javascript/Buttons.js";
-import { btnAddAnimation } from "./javascript/Buttons.js";
+import { playAudio, btnAddAnimation } from "./javascript/Buttons.js";
 
-const sounds = [
-	"../sounds/green.mp3",
-	"../sounds/red.mp3",
-	"../sounds/yellow.mp3",
-	"../sounds/blue.mp3",
-	"../sounds/wrong.mp3",
-];
+const buttons = $(".cta");
 
-const playAudio = (button) => {
-	let audio = new Audio(sounds[button]);
-	audio.play();
-};
-
-$(".cta").click((e) => {
-	let button = $(".cta").index(e.currentTarget);
-	playAudio(button);
+/**
+ * Button Behavior.
+ *
+ * Add click event to the buttons, plays tha audio button verify player answer.
+ *
+ * Plays audio. {@link playAudio}
+ *
+ * Plays button animation. {@link btnAddAnimation}
+ *
+ * Verify player answer. {@link playerSays}
+ */
+buttons.click((e) => {
+	let buttonIndex = buttons.index(e.currentTarget);
+	playAudio(buttonIndex);
 	btnAddAnimation(e.currentTarget);
-	playerSays(button);
+	playerSays(buttonIndex);
 });
 
+/**
+ * Launch Game.
+ *
+ * Launch the game by pressing the A key.
+ *
+ * Start the game. {@link startGame}
+ */
 $("body").keyup((e) => {
 	if (e.key === "a") {
 		startGame();
