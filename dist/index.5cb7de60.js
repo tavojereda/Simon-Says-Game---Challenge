@@ -618,39 +618,7 @@ const playAudio = (button)=>{
  // });
  // export { buttonAnimation };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","url:../sounds/green.mp3":"ajjMm","url:../sounds/red.mp3":"Hli51","url:../sounds/yellow.mp3":"2VCvj","url:../sounds/blue.mp3":"csJ2p","url:../sounds/wrong.mp3":"4Sc9W"}],"JacNc":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule') return;
-        // Skip duplicate re-exports when they have the same value.
-        if (key in dest && dest[key] === source[key]) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"ajjMm":[function(require,module,exports) {
+},{"url:../sounds/green.mp3":"ajjMm","url:../sounds/red.mp3":"Hli51","url:../sounds/yellow.mp3":"2VCvj","url:../sounds/blue.mp3":"csJ2p","url:../sounds/wrong.mp3":"4Sc9W","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"ajjMm":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "green.11273193.mp3";
 
 },{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
@@ -700,6 +668,38 @@ module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "blue.a
 },{"./helpers/bundle-url":"8YnfL"}],"4Sc9W":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('cBz4w') + "wrong.b4c6a247.mp3";
 
-},{"./helpers/bundle-url":"8YnfL"}]},["44Ixy","6cF5V"], "6cF5V", "parcelRequireacc0")
+},{"./helpers/bundle-url":"8YnfL"}],"JacNc":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule') return;
+        // Skip duplicate re-exports when they have the same value.
+        if (key in dest && dest[key] === source[key]) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}]},["44Ixy","6cF5V"], "6cF5V", "parcelRequireacc0")
 
 //# sourceMappingURL=index.5cb7de60.js.map
