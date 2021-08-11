@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel serve ./src/index.html --host 192.168.1.14",
     "clean": "node ./node_modules/parcel-dist-cleaner/distCleaner",
-    "build": "npm run clean && parcel build ./src/index.html"
+    "build": "npm run clean && parcel build ./src/index.html --public-url ./"
   },
   "author": "",
   "license": "ISC",
